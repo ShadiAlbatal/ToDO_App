@@ -1,5 +1,6 @@
 package ToDo;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -16,11 +17,12 @@ public class SearchDB {
     public void searchProject(){
         dBinfo.useDB();
         System.out.println("enter project name to search: ");
-        String proj= scanner.next();
-        String searchProjectQuery= "select * from " + dBinfo.getTableName() + " where Project like '" + proj + "';";
+        String projectSearch= scanner.next();
+        String searchProjectQuery= "select * from " + dBinfo.getTableName() + " where Project like ?;";
         System.out.println(searchProjectQuery);
         try {
-
+            PreparedStatement preparedStatement= dBinfo.getConnection().prepareStatement(searchProjectQuery);
+            preparedStatement.setString(1, projectSearch);
             ResultSet rs = dBinfo.getStatement().executeQuery(searchProjectQuery);
 
             System.out.println("Title   Due_Date    Project    Done");
@@ -41,11 +43,12 @@ public class SearchDB {
     public void searchDueDate(){
         dBinfo.useDB();
         System.out.println("enter Due Date to search: ");
-        String due= scanner.next();
-        String searchDateQuery= "select * from " + dBinfo.getTableName() + " where Due_Date like '" + due + "';";
+        String dueDateSearch= scanner.next();
+        String searchDateQuery= "select * from " + dBinfo.getTableName() + " where Due_Date like ?;";
         System.out.println(searchDateQuery);
         try {
-
+            PreparedStatement preparedStatement= dBinfo.getConnection().prepareStatement(searchDateQuery);
+            preparedStatement.setString(1, dueDateSearch);
             ResultSet rs = dBinfo.getStatement().executeQuery(searchDateQuery);
 
             System.out.println("Title   Due_Date    Project    Done");
@@ -60,7 +63,7 @@ public class SearchDB {
             System.out.println("AlhmaduLLAH ,, finished due");
         } catch(SQLException e) {
             System.out.println("SQL exception occured" + e);
-            System.out.println(due + "not found,, La houl w la quta ila biLLAH");
+            System.out.println(dueDateSearch + "not found,, La houl w la quta ila biLLAH");
         }
     }
 
@@ -69,12 +72,14 @@ public class SearchDB {
         dBinfo.useDB();
         System.out.println("ALHAMDuLLAH, search by title");
         System.out.println("enter Title to search: ");
-        String tit= scanner.next();
-        String searchTitleQuery= "select * from " + dBinfo.getTableName() + " where Title like '" + tit + "';";
+        String titleSearch= scanner.next();
+        String searchTitleQuery= "select * from " + dBinfo.getTableName() + " where Title like ?;";
         System.out.println(searchTitleQuery);
         try {
 
-            ResultSet rs = dBinfo.getStatement().executeQuery(searchTitleQuery);
+            PreparedStatement preparedStatement= dBinfo.getConnection().prepareStatement(titleSearch);
+            preparedStatement.setString(1, titleSearch);
+            ResultSet rs = dBinfo.getStatement().executeQuery(titleSearch);
 
             System.out.println("Title   Due_Date    Project    Done");
             while (rs.next()) {

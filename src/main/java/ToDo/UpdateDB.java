@@ -31,6 +31,9 @@ public class UpdateDB {
                 case 3:
                     RemoveTaskDB removeTaskDB= new RemoveTaskDB();
                     removeTaskDB.remove();
+                case 00:
+                    flag= false;
+                    break;
             }
         }
     }

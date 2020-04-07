@@ -1,5 +1,6 @@
 package ToDo;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -24,13 +25,8 @@ public class InsertData {
         String done= "";
 
 
-        String insertQuery= "insert into " + dBinfo.getTableName()  +
-                "( Title, Due_Date, Project, Done ) values ( '" +
-                title + "', " +
-                due_date + ", '" +
-                project + "', '" +
-                done  + "'" +
-                ");";
+        String insertQuery= "insert into " + dBinfo.getTableName()  + "( Title, Due_Date, Project, Done ) " +
+                "values (?,?,?,?);";
 
 
         try {
@@ -46,17 +42,20 @@ public class InsertData {
         }
 
         try {
-            System.out.println(insertQuery);
-            dBinfo.getStatement().executeUpdate(insertQuery);
-            System.out.println("inserted, ALHMADuLLAH Rb ALalameen");
+            PreparedStatement preparedStatement= dBinfo.getConnection().prepareStatement(insertQuery);
+            preparedStatement.setString(1, title);
+            preparedStatement.setString(2,due_date);
+            preparedStatement.setString(3,project);
+            preparedStatement.setString(4,done);
+
+            preparedStatement.executeUpdate();
+
+            dBinfo.closeConnection();
+
         }
-        catch (Exception e){
-            e.printStackTrace();
+        catch (SQLException s){
+            s.printStackTrace();
         }
-
-
-
-
 
     }
 

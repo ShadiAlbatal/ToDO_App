@@ -26,8 +26,8 @@ public class Main {
 
             switch (choice){
                 case 1:
-                    InsertData_ps InsertData_ps= new InsertData_ps();
-                    InsertData_ps.insert();
+                    InsertData insertData= new InsertData();
+                    insertData.insert();
                     break;
                 case 2:
                     SortDB sortDB = new SortDB();
