@@ -1,5 +1,6 @@
 package ToDo;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -22,20 +23,22 @@ public class EditTaskDB {
         System.out.println("enter new project");
         String newproject= scanner.next();
 
-        String updateQuery= "update " + dBinfo.getTableName() +
-                " set Title = '" + newtitle +
-                "' , Due_Date = '" + newdate +
-                "' , Project = '" + newproject +
-                "' where ID like " + id + ";";
+        String updateQuery= "update " + dBinfo.getTableName() + " set Title = ? , Due_Date = ?, Project = ? where ID like " + id + ";";
+
 
         try {
-            System.out.println("updating, Ya RB lka Alhamd");
-            System.out.println(updateQuery);
-            dBinfo.getStatement().executeUpdate(updateQuery);
+            PreparedStatement preparedStatement= dBinfo.getConnection().prepareStatement(updateQuery);
+            preparedStatement.setString(1, newtitle);
+            preparedStatement.setString(2,newdate);
+            preparedStatement.setString(3,newproject);
+
+            preparedStatement.executeUpdate();
+
+            dBinfo.closeConnection();
+
         }
-        catch (Exception e){
+        catch (SQLException e){
             e.printStackTrace();
-            System.out.println(id + "Hasb ALLAH w nima Alwakil ,did not match any record");
         }
     }
 }

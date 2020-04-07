@@ -25,7 +25,8 @@ public class InsertData {
         String done= "";
 
 
-        String insertQuery= "insert into " + dBinfo.getTableName()  + "( Title, Due_Date, Project, Done ) values ( ?,?,?,?);";
+        String insertQuery= "insert into " + dBinfo.getTableName()  + "( Title, Due_Date, Project, Done ) " +
+                "values (?,?,?,?);";
 
 
         try {

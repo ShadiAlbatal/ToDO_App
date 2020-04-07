@@ -15,8 +15,8 @@ public class SortDB {
         dBinfo.useDB();
             String sortproject= "select * from " + dBinfo.getTableName() + " order by Project";
         try {
-
-            ResultSet rs = dBinfo.getStatement().executeQuery(sortproject);
+            PreparedStatement preparedStatement= dBinfo.getConnection().prepareStatement(sortproject);
+            ResultSet rs = preparedStatement.executeQuery();
 
             System.out.println("Title   Due_Date    Project    Done");
             while (rs.next()) {
@@ -39,8 +39,8 @@ public class SortDB {
             System.out.println("sort title, ALHMADuLLAH Rb ALalameen");
 
         try {
-
-            ResultSet rs = dBinfo.getStatement().executeQuery(sortduedate);
+            PreparedStatement preparedStatement= dBinfo.getConnection().prepareStatement(sortduedate);
+            ResultSet rs = preparedStatement.executeQuery();
 
             System.out.println("Title   Due_Date    Project    Done");
             while (rs.next()) {
@@ -65,7 +65,8 @@ public class SortDB {
             System.out.println("sort, ALHMADuLLAH Rb ALalameen");
             try {
 
-                ResultSet rs = dBinfo.getStatement().executeQuery(sorttitle);
+                PreparedStatement preparedStatement= dBinfo.getConnection().prepareStatement(sorttitle);
+                ResultSet rs = preparedStatement.executeQuery();
 
                 System.out.println("Title   Due_Date    Project    Done");
                 while (rs.next()) {

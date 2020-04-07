@@ -5,16 +5,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class RemoveTaskDB {
+public class InsertData_ps {
 
     private DBinfo dBinfo= new DBinfo();
     private Scanner scanner= new Scanner(System.in);
 
-    public RemoveTaskDB() throws SQLException {
+    public InsertData_ps() throws SQLException {
+
     }
 
-    public void remove() throws SQLException {
-        dBinfo.useDB();
+    public void insert() throws SQLException{
 
         System.out.println("enter task ID to remove");
         int id= scanner.nextInt();
@@ -58,6 +58,5 @@ public class RemoveTaskDB {
         catch (Exception c){
             c.printStackTrace();
         }
-
     }
 }
